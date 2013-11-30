@@ -7,6 +7,10 @@ from kivy.uix.popup import Popup
 
 import os
 
+class LoadDialog(FloatLayout):
+    load = ObjectProperty(None)
+    cancel = ObjectProperty(None)
+
 class SaveDialog(FloatLayout):
     save = ObjectProperty(None)
     text_input = ObjectProperty(None)
@@ -26,6 +30,11 @@ class Root(FloatLayout):
         self._popup = Popup(title="Salvar...", content=content, size_hint=(0.9, 0.9))
         self._popup.open()
 
+    def open_dialog(self):
+        content = LoadDialog(load=self.save, cancel=self.exit)
+        self._popup = Popup(title="Abrir arquivo", content=content)
+        self._popup.open()
+
     def save(self, path, fname):
         with open(os.path.join(path, fname), 'w+') as raw:
             raw.write(self.text_input.text)
@@ -39,6 +48,7 @@ class myapp(App):
 
 Factory.register('Root', cls=Root)
 Factory.register('SaveDialog', cls=SaveDialog)
+Factory.register('LoadDialog', cls=LoadDialog)
 
 if __name__ == '__main__':
     myapp().run()
