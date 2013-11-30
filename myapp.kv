@@ -1,37 +1,50 @@
 #:kivy 1.1.0
 
 Root:
-    text: text
+    text_input: text_input
 
     BoxLayout:
         orientation: 'vertical'
         BoxLayout:
             TextInput:
-                id: text
+                id: text_input
                 text: 'Agregue valor ao seu codigo com Python, pois ele nao usa chaves.'
-                multiline: True
+                multiline: False
         BoxLayout:
             size_hint_y: None
             height: 30
-            width: 30
             Button:
                 text: 'Salvar'
                 on_release: root.save_dialog()
 
 
-
-<SaveDialog>:
-    text: text
+<LoadDialog>:
     BoxLayout:
         size: root.size
         pos: root.pos
         orientation: "vertical"
         FileChooserListView:
             id: filechooser
-            on_selection: text.text = self.selection and self.selection[0] or ''
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancelar"
+                on_release: root.cancel()
+
+<SaveDialog>:
+    text_input: text_input
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+            on_selection: text_input.text = self.selection and self.selection[0] or ''
 
         TextInput:
-            id: text
+            id: text_input
             size_hint_y: None
             height: 30
             multiline: False
@@ -44,6 +57,6 @@ Root:
                 on_release: root.cancel()
 
             Button:
-                text: "Salvar"
-                on_release: root.save(filechooser.path, text.text)
+                text: "Save"
+                on_release: root.save(filechooser.path, text_input.text)
 
