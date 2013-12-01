@@ -14,15 +14,16 @@ Root:
             size_hint_y: None
             height: 30
             Button:
+                text: 'Abrir...'
+                on_release: root.open_dialog()
+            Button:
                 text: 'Salvar'
                 on_release: root.save_dialog()
-
-
-<LoadDialog>:
+<OpenDialog>:
     BoxLayout:
         size: root.size
         pos: root.pos
-        orientation: 'vertical'
+        orientation: "vertical"
         FileChooserListView:
             id: filechooser
 
@@ -32,6 +33,10 @@ Root:
             Button:
                 text: "Cancelar"
                 on_release: root.cancel()
+
+            Button:
+                text: "Abrir"
+                on_release: root.load(filechooser.path, filechooser.selection)
 
 <SaveDialog>:
     text_input: text_input
@@ -59,5 +64,3 @@ Root:
             Button:
                 text: "Salvar"
                 on_release: root.save(filechooser.path, text_input.text)
-
-                
