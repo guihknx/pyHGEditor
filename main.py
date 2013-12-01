@@ -48,7 +48,7 @@ class Root(FloatLayout):
 
     def open_dialog(self):
         content = OpenDialog(load=self.load, cancel=self.exit)
-        self._popup = Popup(title="Load file", content=content, size_hint=(0.9, 0.9))
+        self._popup = Popup(title="Selecione o arquivo", content=content, size_hint=(0.9, 0.9))
         self._popup.open()
 
     def load(self, path, filename):
