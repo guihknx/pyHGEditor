@@ -14,8 +14,12 @@ from kivy.properties import ObjectProperty
 from kivy.uix.textinput import TextInput
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.popup import Popup
+from kivy.config import Config
 import sys; print sys.getdefaultencoding()
 import os
+
+Config.set('graphics', 'width', '100')
+Config.set('graphics', 'height', '100')
 
 class MainWidget(FloatLayout):
     manager = ObjectProperty(None)
@@ -63,6 +67,12 @@ class Root(FloatLayout):
 
 
 class myapp(App):
+    def build(self):
+       self.title = 'pyHGEditor'
+    def on_start(self):
+        self._app_window.size = 400, 500
+
+
     pass
 
 
