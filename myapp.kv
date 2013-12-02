@@ -2,6 +2,8 @@
 
 Root:
     text_input: text_input
+    label_wid: file_info
+    label_modified: is_modified
 
     BoxLayout:
         orientation: 'vertical'
@@ -14,6 +16,7 @@ Root:
                     multiline: True
                     size_hint: 1, None
                     height: max( (len(self._lines)+1) * self.line_height, offset.height)
+                    
         BoxLayout:
             size_hint_y: None
             height: 30
@@ -22,14 +25,33 @@ Root:
                 on_release: root.open_dialog()
             Button:
                 text: 'Salvar'
-                on_release: root.save_dialog()
-<OpenDialog>:
+                on_press: root.save_dialog()
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Label:
+                id: file_info
+                height: 30
+                width:300
+                halign: 'center'
+                text: '--'
+                size_hint: (0, 0)
+            Label:
+                id: is_modified
+                height: 30
+                halign: 'right'
+                text: '--'
+                size_hint: (0, 0)
+<OpenDialog>:   
+
     BoxLayout:
         size: root.size
         pos: root.pos
         orientation: "vertical"
         FileChooserListView:
             id: filechooser
+                    
 
         BoxLayout:
             size_hint_y: None
@@ -40,8 +62,9 @@ Root:
 
             Button:
                 text: "Abrir"
-                on_release: root.load(filechooser.path, filechooser.selection)
+                on_release: root.load(filechooser.path, filechooser.selection) 
 
+            
 <SaveDialog>:
     text_input: text_input
     BoxLayout:
